@@ -1,0 +1,645 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:BeaconLaunch.ViewModels"
+             xmlns:controls="using:BeaconLaunch.Controls"
+             x:Class="BeaconLaunch.Views.SettingsView"
+             x:DataType="vm:MainViewModel"
+             Background="Transparent">
+
+    <UserControl.Resources>
+        <StreamGeometry x:Key="IconPalette">M12 3a9 9 0 1 0 0 18c1.5 0 2-1 2-2 0-1.5 1-2 2.2-2H18a3 3 0 0 0 3-3 9 9 0 0 0-9-11Z M7.5 9h.01 M10 6.5h.01 M14.5 6.5h.01 M17 9h.01</StreamGeometry>
+        <StreamGeometry x:Key="IconSliders">M4 7h6 M14 7h6 M4 17h7 M15 17h5 M12 5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z M13 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z</StreamGeometry>
+        <StreamGeometry x:Key="IconCoffee">M4 8h12v7a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Z M16 9h2.5a2.5 2.5 0 0 1 0 5H16 M7 3v2 M11 3v2 M15 3v2</StreamGeometry>
+        <StreamGeometry x:Key="IconUsers">M9 4.5a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z M3.5 19.5a5.5 5.5 0 0 1 11 0 M16.4 5.2a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2Z M15.1 14.9a4.8 4.8 0 0 1 5.4 4.6</StreamGeometry>
+        <StreamGeometry x:Key="IconSun">M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z M12 2.5v2 M12 19.5v2 M2.5 12h2 M19.5 12h2 M5.3 5.3l1.4 1.4 M17.3 17.3l1.4 1.4 M18.7 5.3l-1.4 1.4 M6.7 17.3l-1.4 1.4</StreamGeometry>
+        <StreamGeometry x:Key="IconMoon">M20 14.6A8.3 8.3 0 0 1 9.4 4a8.5 8.5 0 1 0 10.6 10.6Z</StreamGeometry>
+        <StreamGeometry x:Key="IconCheck">m5 12.5 4.5 4.5L19 7.5</StreamGeometry>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="TextBlock.page-title">
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="TextBlock.section-title">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="TextBlock.meta">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{DynamicResource TextMutedBrush}" />
+        </Style>
+
+        <!-- Settings left rail -->
+        <Style Selector="RadioButton.rail-item">
+            <Setter Property="Height" Value="46" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="13.5" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="RailRoot"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="10"
+                            Padding="{TemplateBinding Padding}"
+                            TextElement.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="Stretch"
+                                          VerticalContentAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton.rail-item /template/ Border#RailRoot">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.12" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton.rail-item:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item:pointerover /template/ Border#RailRoot">
+            <Setter Property="Background" Value="{DynamicResource NavHoverBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item:checked">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item:checked /template/ Border#RailRoot">
+            <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item TextBlock">
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="13.5" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item:checked TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item Path">
+            <Setter Property="Stroke" Value="{Binding $parent[RadioButton].Foreground}" />
+            <Setter Property="StrokeThickness" Value="1.6" />
+            <Setter Property="StrokeLineCap" Value="Round" />
+            <Setter Property="StrokeJoin" Value="Round" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+
+        <Style Selector="RadioButton.rail-item:checked Path">
+            <Setter Property="Stroke" Value="{DynamicResource AccentBrush}" />
+        </Style>
+
+        <!-- Theme option cards -->
+        <Style Selector="RadioButton.theme-option">
+            <Setter Property="Width" Value="242" />
+            <Setter Property="Padding" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="ThemeRoot"
+                            Background="Transparent"
+                            BorderBrush="{DynamicResource SurfaceBorderBrush}"
+                            BorderThickness="2"
+                            CornerRadius="14"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="Stretch"
+                                          VerticalContentAlignment="Top" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton.theme-option /template/ Border#ThemeRoot">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.14" />
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.14" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton.theme-option:pointerover /template/ Border#ThemeRoot">
+            <Setter Property="Background" Value="{DynamicResource SurfaceHoverBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.theme-option:checked /template/ Border#ThemeRoot">
+            <Setter Property="Background" Value="{DynamicResource SurfaceSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.theme-option Path.theme-icon">
+            <Setter Property="Stroke" Value="{DynamicResource TextSecondaryBrush}" />
+            <Setter Property="StrokeThickness" Value="1.6" />
+            <Setter Property="StrokeLineCap" Value="Round" />
+            <Setter Property="StrokeJoin" Value="Round" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+
+        <Style Selector="Path.theme-check">
+            <Setter Property="Stroke" Value="{DynamicResource AccentBrush}" />
+            <Setter Property="StrokeThickness" Value="1.8" />
+            <Setter Property="StrokeLineCap" Value="Round" />
+            <Setter Property="StrokeJoin" Value="Round" />
+            <Setter Property="Stretch" Value="Uniform" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+
+        <Style Selector="RadioButton.theme-option:checked Path.theme-check">
+            <Setter Property="Opacity" Value="1" />
+        </Style>
+
+        <!-- Settings card -->
+        <Style Selector="Border.settings-card">
+            <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SurfaceBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="Padding" Value="24" />
+        </Style>
+
+        <Style Selector="TextBox.settings-input">
+            <Setter Property="Width" Value="360" />
+            <Setter Property="MinHeight" Value="38" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="Background" Value="{DynamicResource SurfaceSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SurfaceBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
+            <Setter Property="CaretBrush" Value="{DynamicResource CaretBrush}" />
+        </Style>
+
+        <Style Selector="TextBox.settings-input:focus">
+            <Setter Property="BorderBrush" Value="{DynamicResource FocusRingBrush}" />
+        </Style>
+
+        <Style Selector="TextBox.accent-hex">
+            <Setter Property="MinHeight" Value="34" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Padding" Value="10,0" />
+            <Setter Property="Background" Value="{DynamicResource SurfaceSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource SurfaceBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="SelectionBrush" Value="{DynamicResource SelectionBrush}" />
+            <Setter Property="CaretBrush" Value="{DynamicResource CaretBrush}" />
+        </Style>
+
+        <Style Selector="TextBox.accent-hex:focus">
+            <Setter Property="BorderBrush" Value="{DynamicResource FocusRingBrush}" />
+        </Style>
+
+        <Style Selector="TextBox.accent-hex.invalid">
+            <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
+        </Style>
+
+        <Style Selector="TextBox.accent-hex.invalid:focus">
+            <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
+        </Style>
+
+        <Style Selector="Button.accent-apply">
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="{DynamicResource AccentButtonBrush}" />
+            <Setter Property="Foreground" Value="{DynamicResource AccentOnBrush}" />
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="12.5" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+        </Style>
+
+        <Style Selector="Button.accent-apply:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
+        </Style>
+
+        <Style Selector="Button.accent-apply:pressed">
+            <Setter Property="Background" Value="{DynamicResource AccentHoverBrush}" />
+        </Style>
+
+        <Style Selector="Button.text-action">
+            <Setter Property="Padding" Value="0,4" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="TextActionRoot"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="6"
+                            Padding="{TemplateBinding Padding}"
+                            TextElement.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="Left"
+                                          VerticalContentAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.text-action:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="Button.text-action /template/ Border#TextActionRoot">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.12" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.text-action:pointerover /template/ Border#TextActionRoot">
+            <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}" />
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="24" ColumnDefinitions="132,*">
+        <!-- Left rail -->
+        <Border Background="{DynamicResource SettingsRailBrush}"
+                BorderBrush="{DynamicResource SurfaceBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="16"
+                Padding="8"
+                VerticalAlignment="Stretch">
+            <StackPanel Spacing="2" VerticalAlignment="Top">
+                <RadioButton x:Name="PersonalizationNav"
+                             Classes="rail-item"
+                             GroupName="SettingsSections"
+                             IsChecked="True"
+                             IsCheckedChanged="SettingsSection_Checked">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Path Data="{StaticResource IconPalette}" Width="18" Height="18" />
+                        <TextBlock Text="个性化" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="GameSettingsNav"
+                             Classes="rail-item"
+                             GroupName="SettingsSections"
+                             IsCheckedChanged="SettingsSection_Checked">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Path Data="{StaticResource IconSliders}" Width="18" Height="18" />
+                        <TextBlock Text="游戏设置" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="JavaNav"
+                             Classes="rail-item"
+                             GroupName="SettingsSections"
+                             IsCheckedChanged="SettingsSection_Checked">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Path Data="{StaticResource IconCoffee}" Width="18" Height="18" />
+                        <TextBlock Text="Java管理" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+
+                <RadioButton x:Name="OnlineNav"
+                             Classes="rail-item"
+                             GroupName="SettingsSections"
+                             IsCheckedChanged="SettingsSection_Checked">
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <Path Data="{StaticResource IconUsers}" Width="18" Height="18" />
+                        <TextBlock Text="联机设置" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+            </StackPanel>
+        </Border>
+
+        <!-- Right content -->
+        <ScrollViewer x:Name="SettingsScroll"
+                      Grid.Column="1"
+                      Margin="18,0,0,0"
+                      VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <!-- Personalization -->
+                <StackPanel x:Name="PersonalizationPanel" Spacing="16">
+                    <TextBlock Text="个性化" Classes="page-title" />
+
+                    <Border Classes="settings-card">
+                        <StackPanel Spacing="10">
+                            <TextBlock Text="标题栏" Classes="section-title" />
+                            <TextBox Classes="settings-input"
+                                     Text="{Binding LauncherName, Mode=TwoWay}"
+                                     MaxLength="40"
+                                     HorizontalAlignment="Left" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Classes="settings-card">
+                        <StackPanel Spacing="18">
+                            <TextBlock Text="主题" Classes="section-title" />
+
+                            <StackPanel Orientation="Horizontal" Spacing="14">
+                                <RadioButton x:Name="LightThemeOption"
+                                             Classes="theme-option"
+                                             GroupName="ThemeOptions"
+                                             IsCheckedChanged="LightTheme_Checked">
+                                    <StackPanel Spacing="10">
+                                        <Border Height="84"
+                                                CornerRadius="9"
+                                                ClipToBounds="True"
+                                                Background="#FAFAFA">
+                                            <Grid RowDefinitions="18,*">
+                                                <Border Background="#FFFFFF"
+                                                        BorderBrush="#E4E4E7"
+                                                        BorderThickness="0,0,0,1">
+                                                    <Grid Margin="8,0" ColumnDefinitions="*,Auto">
+                                                        <StackPanel Orientation="Horizontal"
+                                                                    Spacing="4"
+                                                                    VerticalAlignment="Center">
+                                                            <Border Width="24"
+                                                                    Height="4"
+                                                                    CornerRadius="2"
+                                                                    Background="#18181B" />
+                                                            <Border Width="12"
+                                                                    Height="3"
+                                                                    CornerRadius="1.5"
+                                                                    Background="#A1A1AA" />
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1"
+                                                                    Orientation="Horizontal"
+                                                                    Spacing="4"
+                                                                    VerticalAlignment="Center">
+                                                            <Ellipse Width="4" Height="4" Fill="#D4D4D8" />
+                                                            <Ellipse Width="4" Height="4" Fill="#D4D4D8" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                                <Grid Grid.Row="1" Margin="8" ColumnDefinitions="24,*">
+                                                    <Border Background="#F4F4F5" CornerRadius="4" />
+                                                    <Border Grid.Column="1"
+                                                            Margin="7,0,0,0"
+                                                            Background="#FFFFFF"
+                                                            CornerRadius="4"
+                                                            BorderBrush="#E4E4E7"
+                                                            BorderThickness="1"
+                                                            Padding="7">
+                                                        <StackPanel Spacing="5">
+                                                            <Border Width="52"
+                                                                    Height="16"
+                                                                    HorizontalAlignment="Left"
+                                                                    CornerRadius="3"
+                                                                    Background="#2563EB" />
+                                                            <Border Width="96"
+                                                                    Height="4"
+                                                                    HorizontalAlignment="Left"
+                                                                    CornerRadius="2"
+                                                                    Background="#18181B" />
+                                                            <Border Width="66"
+                                                                    Height="3"
+                                                                    HorizontalAlignment="Left"
+                                                                    CornerRadius="1.5"
+                                                                    Background="#A1A1AA" />
+                                                        </StackPanel>
+                                                    </Border>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+
+                                        <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+                                            <Path Data="{StaticResource IconSun}"
+                                                  Classes="theme-icon"
+                                                  Width="17"
+                                                  Height="17" />
+                                            <StackPanel Grid.Column="1" Margin="8,0,0,0" Spacing="1">
+                                                <TextBlock Text="浅色" FontSize="13" FontWeight="SemiBold" />
+                                                <TextBlock Text="明亮清爽" Classes="meta" />
+                                            </StackPanel>
+                                            <Path Grid.Column="2"
+                                                  Data="{StaticResource IconCheck}"
+                                                  Classes="theme-check"
+                                                  Width="15"
+                                                  Height="15" />
+                                        </Grid>
+                                    </StackPanel>
+                                </RadioButton>
+
+                                <RadioButton x:Name="DarkThemeOption"
+                                             Classes="theme-option"
+                                             GroupName="ThemeOptions"
+                                             IsCheckedChanged="DarkTheme_Checked">
+                                    <StackPanel Spacing="10">
+                                        <Border Height="84"
+                                                CornerRadius="9"
+                                                ClipToBounds="True"
+                                                Background="#09090B">
+                                            <Grid RowDefinitions="18,*">
+                                                <Border Background="#121214"
+                                                        BorderBrush="#27272A"
+                                                        BorderThickness="0,0,0,1">
+                                                    <Grid Margin="8,0" ColumnDefinitions="*,Auto">
+                                                        <StackPanel Orientation="Horizontal"
+                                                                    Spacing="4"
+                                                                    VerticalAlignment="Center">
+                                                            <Border Width="24"
+                                                                    Height="4"
+                                                                    CornerRadius="2"
+                                                                    Background="#FAFAFA" />
+                                                            <Border Width="12"
+                                                                    Height="3"
+                                                                    CornerRadius="1.5"
+                                                                    Background="#71717A" />
+                                                        </StackPanel>
+                                                        <StackPanel Grid.Column="1"
+                                                                    Orientation="Horizontal"
+                                                                    Spacing="4"
+                                                                    VerticalAlignment="Center">
+                                                            <Ellipse Width="4" Height="4" Fill="#3F3F46" />
+                                                            <Ellipse Width="4" Height="4" Fill="#3F3F46" />
+                                                        </StackPanel>
+                                                    </Grid>
+                                                </Border>
+                                                <Grid Grid.Row="1" Margin="8" ColumnDefinitions="24,*">
+                                                    <Border Background="#18181B" CornerRadius="4" />
+                                                    <Border Grid.Column="1"
+                                                            Margin="7,0,0,0"
+                                                            Background="#121214"
+                                                            CornerRadius="4"
+                                                            BorderBrush="#27272A"
+                                                            BorderThickness="1"
+                                                            Padding="7">
+                                                        <StackPanel Spacing="5">
+                                                            <Border Width="52"
+                                                                    Height="16"
+                                                                    HorizontalAlignment="Left"
+                                                                    CornerRadius="3"
+                                                                    Background="#2563EB" />
+                                                            <Border Width="96"
+                                                                    Height="4"
+                                                                    HorizontalAlignment="Left"
+                                                                    CornerRadius="2"
+                                                                    Background="#FAFAFA" />
+                                                            <Border Width="66"
+                                                                    Height="3"
+                                                                    HorizontalAlignment="Left"
+                                                                    CornerRadius="1.5"
+                                                                    Background="#A1A1AA" />
+                                                        </StackPanel>
+                                                    </Border>
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+
+                                        <Grid ColumnDefinitions="Auto,*,Auto" VerticalAlignment="Center">
+                                            <Path Data="{StaticResource IconMoon}"
+                                                  Classes="theme-icon"
+                                                  Width="17"
+                                                  Height="17" />
+                                            <StackPanel Grid.Column="1" Margin="8,0,0,0" Spacing="1">
+                                                <TextBlock Text="深色" FontSize="13" FontWeight="SemiBold" />
+                                                <TextBlock Text="低光沉浸" Classes="meta" />
+                                            </StackPanel>
+                                            <Path Grid.Column="2"
+                                                  Data="{StaticResource IconCheck}"
+                                                  Classes="theme-check"
+                                                  Width="15"
+                                                  Height="15" />
+                                        </Grid>
+                                    </StackPanel>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Classes="settings-card">
+                        <StackPanel Spacing="14">
+                            <StackPanel Spacing="3">
+                                <TextBlock Text="强调色" Classes="section-title" />
+                                <TextBlock Text="默认跟随主题强调色；拖动色板自由取色，点击应用后生效。"
+                                           Classes="meta" />
+                            </StackPanel>
+
+                            <Grid ColumnDefinitions="320,340"
+                                  ColumnSpacing="20"
+                                  HorizontalAlignment="Left">
+                                <controls:HsvColorPicker x:Name="AccentPicker"
+                                                         Width="320"
+                                                         Height="190"
+                                                         VerticalAlignment="Top"
+                                                         OutlineBrush="{DynamicResource SurfaceBorderStrongBrush}"
+                                                         ColorChanged="AccentPicker_ColorChanged" />
+
+                                <StackPanel Grid.Column="1"
+                                            Spacing="12"
+                                            VerticalAlignment="Top">
+                                    <Grid ColumnDefinitions="Auto,*">
+                                        <Border x:Name="AccentPreviewSwatch"
+                                                Width="52"
+                                                Height="52"
+                                                CornerRadius="14"
+                                                VerticalAlignment="Center"
+                                                Background="{DynamicResource AccentBrush}"
+                                                BorderBrush="{DynamicResource SurfaceBorderBrush}"
+                                                BorderThickness="1" />
+                                        <StackPanel Grid.Column="1"
+                                                    Margin="12,0,0,0"
+                                                    Spacing="3"
+                                                    VerticalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <TextBlock x:Name="AccentHexPreview"
+                                                           Text="{Binding EffectiveAccentHex}"
+                                                           FontSize="15"
+                                                           FontWeight="SemiBold" />
+                                                <TextBlock Text="预览"
+                                                           Classes="meta"
+                                                           Margin="0,0,0,2"
+                                                           VerticalAlignment="Bottom" />
+                                            </StackPanel>
+                                            <TextBlock Text="{Binding AccentStatusText}" Classes="meta" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                                        <TextBox x:Name="AccentHexInput"
+                                                 Classes="accent-hex"
+                                                 PlaceholderText="#RRGGBB"
+                                                 MaxLength="7"
+                                                 TextChanged="AccentHexInput_TextChanged"
+                                                 KeyDown="AccentHexInput_KeyDown" />
+                                        <Button Grid.Column="1"
+                                                Classes="accent-apply"
+                                                Content="应用"
+                                                Click="ApplyAccent_Click" />
+                                    </Grid>
+
+                                    <TextBlock Text="输入 #RRGGBB 后按 Enter，或点击应用。"
+                                               Classes="meta"
+                                               TextWrapping="Wrap" />
+
+                                    <Button x:Name="FollowThemeButton"
+                                            Classes="text-action"
+                                            Content="跟随主题色"
+                                            IsVisible="{Binding HasCustomAccent}"
+                                            HorizontalAlignment="Left"
+                                            Click="FollowTheme_Click" />
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <!-- Game settings placeholder -->
+                <StackPanel x:Name="GameSettingsPanel" IsVisible="False" Spacing="20">
+                    <TextBlock Text="游戏设置" Classes="page-title" />
+                </StackPanel>
+
+                <!-- Java placeholder -->
+                <StackPanel x:Name="JavaPanel" IsVisible="False" Spacing="20">
+                    <TextBlock Text="Java管理" Classes="page-title" />
+                </StackPanel>
+
+                <!-- Online placeholder -->
+                <StackPanel x:Name="OnlinePanel" IsVisible="False" Spacing="20">
+                    <TextBlock Text="联机设置" Classes="page-title" />
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

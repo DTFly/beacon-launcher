@@ -1,0 +1,283 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="using:BeaconLaunch.Views"
+        xmlns:vm="using:BeaconLaunch.ViewModels"
+        x:Class="BeaconLaunch.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="{Binding LauncherName}"
+        Icon="/Assets/app.ico"
+        Width="1280"
+        Height="800"
+        MinWidth="960"
+        MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AppBackgroundBrush}"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        WindowDecorations="BorderOnly"
+        CanResize="True"
+        CanMaximize="False">
+
+    <Window.Resources>
+        <StreamGeometry x:Key="IconLaunch">M8 5.5v13l11-6.5L8 5.5Z</StreamGeometry>
+        <StreamGeometry x:Key="IconDownload">M12 3.5v11 M7.5 10 12 14.5 16.5 10 M4.5 20h15</StreamGeometry>
+        <StreamGeometry x:Key="IconMultiplayer">M9 4.5a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z M3.5 19.5a5.5 5.5 0 0 1 11 0 M16.4 5.2a2.6 2.6 0 1 0 0 5.2 2.6 2.6 0 0 0 0-5.2Z M15.1 14.9a4.8 4.8 0 0 1 5.4 4.6</StreamGeometry>
+        <StreamGeometry x:Key="IconSettings">M4 7h6 M14 7h6 M4 17h7 M15 17h5 M12 5a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z M13 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z</StreamGeometry>
+
+        <StreamGeometry x:Key="WinMinimizeIcon">M2 6h8</StreamGeometry>
+        <StreamGeometry x:Key="WinCloseIcon">M2.5 2.5l7 7 M9.5 2.5 2.5 9.5</StreamGeometry>
+    </Window.Resources>
+
+    <Window.Styles>
+        <!-- Top navigation -->
+        <Style Selector="RadioButton.nav">
+            <Setter Property="Height" Value="34" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="NavRoot"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="9"
+                            Padding="{TemplateBinding Padding}"
+                            TextElement.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="Center"
+                                          VerticalContentAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton.nav /template/ Border#NavRoot">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.12" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="RadioButton.nav:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.nav:pointerover /template/ Border#NavRoot">
+            <Setter Property="Background" Value="{DynamicResource NavHoverBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.nav:checked">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.nav:checked /template/ Border#NavRoot">
+            <Setter Property="Background" Value="{DynamicResource AccentSoftBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.nav TextBlock">
+            <Setter Property="FontFamily" Value="{DynamicResource UiFont}" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="Normal" />
+        </Style>
+
+        <Style Selector="RadioButton.nav:checked TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="RadioButton.nav Path">
+            <Setter Property="Stroke" Value="{Binding $parent[RadioButton].Foreground}" />
+            <Setter Property="StrokeThickness" Value="1.6" />
+            <Setter Property="StrokeLineCap" Value="Round" />
+            <Setter Property="StrokeJoin" Value="Round" />
+            <Setter Property="Stretch" Value="Uniform" />
+        </Style>
+
+        <Style Selector="RadioButton.nav:checked Path">
+            <Setter Property="Stroke" Value="{DynamicResource AccentBrush}" />
+        </Style>
+
+        <Style Selector="RadioButton.nav Ellipse.more-dot">
+            <Setter Property="Fill" Value="{Binding $parent[RadioButton].Foreground}" />
+        </Style>
+
+        <Style Selector="RadioButton.nav:checked Ellipse.more-dot">
+            <Setter Property="Fill" Value="{DynamicResource AccentBrush}" />
+        </Style>
+
+        <!-- Window buttons -->
+        <Style Selector="Button.chrome">
+            <Setter Property="Width" Value="44" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="FocusAdorner" Value="{x:Null}" />
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <Border Name="ChromeRoot"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="8"
+                            TextElement.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalContentAlignment="Center"
+                                          VerticalContentAlignment="Center" />
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.chrome /template/ Border#ChromeRoot">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.12" />
+                </Transitions>
+            </Setter>
+        </Style>
+
+        <Style Selector="Button.chrome:pointerover /template/ Border#ChromeRoot">
+            <Setter Property="Background" Value="{DynamicResource NavHoverBrush}" />
+        </Style>
+
+        <Style Selector="Button.chrome:pressed /template/ Border#ChromeRoot">
+            <Setter Property="Background" Value="{DynamicResource NavSelectedBrush}" />
+        </Style>
+
+        <Style Selector="Button.chrome:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}" />
+        </Style>
+
+        <Style Selector="Button.chrome.close:pointerover /template/ Border#ChromeRoot">
+            <Setter Property="Background" Value="#E5484D" />
+        </Style>
+
+        <Style Selector="Button.chrome.close:pointerover">
+            <Setter Property="Foreground" Value="#FFFFFF" />
+        </Style>
+
+        <Style Selector="Button.chrome.close:pressed /template/ Border#ChromeRoot">
+            <Setter Property="Background" Value="#C93C41" />
+        </Style>
+
+        <Style Selector="Button.chrome Path">
+            <Setter Property="Stroke" Value="{Binding $parent[Button].Foreground}" />
+            <Setter Property="StrokeThickness" Value="1.35" />
+            <Setter Property="StrokeLineCap" Value="Round" />
+        </Style>
+    </Window.Styles>
+
+    <Grid RowDefinitions="56,*" Background="{DynamicResource AppBackgroundBrush}">
+
+        <!-- Top bar -->
+        <Grid Grid.Row="0" Background="{DynamicResource TopBarBackgroundBrush}">
+            <Border Background="Transparent"
+                    PointerPressed="TitleBar_PointerPressed" />
+
+            <Grid>
+                <!-- Left: launcher name (edited from Settings > 个性化) -->
+                <TextBlock Text="{Binding LauncherName}"
+                           FontFamily="{DynamicResource UiFont}"
+                           FontSize="15"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextPrimaryBrush}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="20,0,0,0"
+                           MaxWidth="220"
+                           TextTrimming="CharacterEllipsis"
+                           IsHitTestVisible="False" />
+
+                <!-- Center: navigation -->
+                <StackPanel Orientation="Horizontal"
+                            Spacing="8"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                    <RadioButton Classes="nav"
+                                 GroupName="MainNav"
+                                 IsChecked="True">
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <Path Data="{StaticResource IconLaunch}" Width="17" Height="17" />
+                            <TextBlock Text="启动" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Classes="nav" GroupName="MainNav">
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <Path Data="{StaticResource IconDownload}" Width="17" Height="17" />
+                            <TextBlock Text="下载" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Classes="nav" GroupName="MainNav">
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <Path Data="{StaticResource IconMultiplayer}" Width="17" Height="17" />
+                            <TextBlock Text="联机" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton x:Name="SettingsNavButton"
+                                 Classes="nav"
+                                 GroupName="MainNav">
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <Path Data="{StaticResource IconSettings}" Width="17" Height="17" />
+                            <TextBlock Text="设置" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Classes="nav" GroupName="MainNav">
+                        <StackPanel Orientation="Horizontal" Spacing="7">
+                            <Grid Width="17" Height="17">
+                                <StackPanel Orientation="Horizontal"
+                                            Spacing="2.5"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <Ellipse Classes="more-dot" Width="3" Height="3" />
+                                    <Ellipse Classes="more-dot" Width="3" Height="3" />
+                                    <Ellipse Classes="more-dot" Width="3" Height="3" />
+                                </StackPanel>
+                            </Grid>
+                            <TextBlock Text="更多" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </RadioButton>
+                </StackPanel>
+
+                <!-- Right: window buttons -->
+                <StackPanel Orientation="Horizontal"
+                            Spacing="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0,0,10,0">
+                    <Button Classes="chrome"
+                            Click="MinimizeButton_Click"
+                            ToolTip.Tip="最小化">
+                        <Path Data="{StaticResource WinMinimizeIcon}"
+                              Width="12"
+                              Height="12" />
+                    </Button>
+                    <Button Classes="chrome close"
+                            Click="CloseButton_Click"
+                            ToolTip.Tip="关闭">
+                        <Path Data="{StaticResource WinCloseIcon}"
+                              Width="12"
+                              Height="12" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Border Height="1"
+                    VerticalAlignment="Bottom"
+                    Background="{DynamicResource TopBarBorderBrush}"
+                    IsHitTestVisible="False" />
+        </Grid>
+
+        <!-- Content area -->
+        <Panel Grid.Row="1"
+               x:Name="ContentHost"
+               Background="{DynamicResource AppBackgroundBrush}">
+            <views:SettingsView x:Name="SettingsViewControl" IsVisible="False" />
+        </Panel>
+    </Grid>
+</Window>

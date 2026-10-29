@@ -1,0 +1,49 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="BeaconLaunch.App"
+             xmlns:local="using:BeaconLaunch"
+             RequestedThemeVariant="Light">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="UiFont">Segoe UI Variable Text, Microsoft YaHei UI, Segoe UI</FontFamily>
+
+            <!-- Light defaults; ThemeService replaces these when the theme changes. -->
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FAFAFA" />
+            <SolidColorBrush x:Key="TopBarBackgroundBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="TopBarBorderBrush" Color="#E4E4E7" />
+            <SolidColorBrush x:Key="TextPrimaryBrush" Color="#18181B" />
+            <SolidColorBrush x:Key="TextSecondaryBrush" Color="#52525B" />
+            <SolidColorBrush x:Key="TextMutedBrush" Color="#A1A1AA" />
+            <SolidColorBrush x:Key="NavHoverBrush" Color="#E4E4E7" />
+            <SolidColorBrush x:Key="NavSelectedBrush" Color="#EFF6FF" />
+            <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="SurfaceSecondaryBrush" Color="#F4F4F5" />
+            <SolidColorBrush x:Key="SurfaceBorderBrush" Color="#E4E4E7" />
+            <SolidColorBrush x:Key="SurfaceBorderStrongBrush" Color="#D4D4D8" />
+            <SolidColorBrush x:Key="SurfaceHoverBrush" Color="#EBEBED" />
+            <SolidColorBrush x:Key="SettingsRailBrush" Color="#F4F4F5" />
+            <SolidColorBrush x:Key="SelectionBrush" Color="#6693C5FD" />
+            <SolidColorBrush x:Key="CaretBrush" Color="#18181B" />
+
+            <SolidColorBrush x:Key="AccentBrush" Color="#2563EB" />
+            <SolidColorBrush x:Key="AccentButtonBrush" Color="#2563EB" />
+            <SolidColorBrush x:Key="AccentHoverBrush" Color="#1D4ED8" />
+            <SolidColorBrush x:Key="AccentSoftBrush" Color="#EFF6FF" />
+            <SolidColorBrush x:Key="AccentOnBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="FocusRingBrush" Color="#93C5FD" />
+
+            <SolidColorBrush x:Key="SuccessBrush" Color="#16A34A" />
+            <SolidColorBrush x:Key="WarningBrush" Color="#D97706" />
+            <SolidColorBrush x:Key="DangerBrush" Color="#DC2626" />
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+</Application>
