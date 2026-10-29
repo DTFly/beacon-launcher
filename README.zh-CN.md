@@ -1,7 +1,5 @@
 # Beacon Launcher
 
-<img src="logo.png" width="110" align="right" alt="Beacon Launcher 图标" />
-
 Beacon Launcher 是一个开源的 Minecraft: Java Edition 启动器，使用 [Avalonia UI](https://avaloniaui.net/) 12 和 .NET 10 构建。
 
 [English](README.md)

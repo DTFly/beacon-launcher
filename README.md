@@ -1,7 +1,5 @@
 # Beacon Launcher
 
-<img src="logo.png" width="110" align="right" alt="Beacon Launcher logo" />
-
 Beacon Launcher is an open-source launcher for Minecraft: Java Edition, built with [Avalonia UI](https://avaloniaui.net/) 12 and .NET 10.
 
 [中文说明](README.zh-CN.md)
